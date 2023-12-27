@@ -63,6 +63,14 @@
                       </a>
                     </li>
                     <li class="nav-item dropdown">
+                      <a href="<?php echo base_url ?>admin/?page=playlist" class="nav-link nav-contact">
+                        <i class="nav-icon fab fa-youtube"></i>
+                        <p>
+                         Youtube playlist
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item dropdown">
                       <a href="<?php echo base_url ?>admin/?page=event" class="nav-link">
                         <i class="nav-icon far fa-calendar"></i>
                         <p>
@@ -70,6 +78,15 @@
                         </p>
                       </a>
                     </li>
+                    <li class="nav-item dropdown">
+                      <a href="<?php echo base_url ?>admin/?page=fellowship_displaypicture" class="nav-link">
+                        <i class="nav-icon far fa-calendar"></i>
+                        <p>
+                          Fellowship Flash Cards
+                        </p>
+                      </a>
+                    </li>
+                    
                     <li class="nav-item dropdown">
                       <a href="<?php echo base_url ?>admin/?page=services" class="nav-link nav-services">
                         <i class="nav-icon fas fa-cog"></i>
@@ -114,7 +131,7 @@
                       <a href="<?php echo base_url ?>admin/?page=contact" class="nav-link nav-contact">
                         <i class="nav-icon fas fa-id-card"></i>
                         <p>
-                          Contact
+                          Contact and Year details
                         </p>
                       </a>
                     </li>

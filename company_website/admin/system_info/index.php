@@ -22,7 +22,7 @@
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
 		<div class="card-header">
-			<h5 class="card-title">System Information</h5>
+			<h5 class="card-title">Website Information</h5>
 			<!-- <div class="card-tools">
 				<a class="btn btn-block btn-sm btn-default btn-flat border-primary new_department" href="javascript:void(0)"><i class="fa fa-plus"></i> Add New</a>
 			</div> -->
@@ -31,11 +31,11 @@
 			<form action="" id="system-frm">
 				<div id="msg" class="form-group"></div>
 				<div class="form-group">
-					<label for="name" class="control-label">System Name</label>
+					<label for="name" class="control-label">Church Name</label>
 					<input type="text" class="form-control form-control-sm" name="name" id="name" value="<?php echo $_settings->info('name') ?>">
 				</div>
 				<div class="form-group">
-					<label for="short_name" class="control-label">System Short Name</label>
+					<label for="short_name" class="control-label">Church Short Name</label>
 					<input type="text" class="form-control form-control-sm" name="short_name" id="short_name" value="<?php echo  $_settings->info('short_name') ?>">
 				</div>
 			<div class="form-group">
@@ -43,7 +43,7 @@
 	             <textarea name="welcome_message" id="" cols="30" rows="5" class="form-control"><?php echo  stripslashes($_settings->info('welcome_message')) ?></textarea>
 			</div>
 			<div class="form-group">
-				<label for="" class="control-label">System Logo</label>
+				<label for="" class="control-label">Church Logo</label>
 				<div class="custom-file">
 	              <input type="file" class="custom-file-input rounded-circle" id="customFile" name="img" onchange="displayImg(this,$(this))">
 	              <label class="custom-file-label" for="customFile">Choose file</label>

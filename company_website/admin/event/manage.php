@@ -19,61 +19,60 @@ if(isset($_GET['id'])){
   }
 </style>
 <div class="col-lg-12">
-	<div class="card card-outline card-primary">
-		<div class="card-header">
-			<h5 class="card-title"><?php echo isset($id) ? "Manage": "Create" ?> Event</h5>
-		</div>
-		<div class="card-body">
-			<form id="event">
-				<div class="row" class="details">
-					<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label for="date" class="control-label">Date (DD-MM-YYYY)</label>
-							<textarea name="date" cols="30" rows="2" class="form-control"><?php echo isset($date) ? $date : '' ?></textarea>
-						</div>
-					</div>
-				</div>
-				<div class="row" class="details">
-					<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label for="date" class="control-label">Time</label>
-							<textarea name="time" cols="30" rows="2" class="form-control"><?php echo isset($time) ? $time : '' ?></textarea>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="form-group">
-							<label for="" class="control-label">Event Title</label>
-				             <textarea name="description" id="" cols="30" rows="10" class="form-control summernote"><?php echo (isset($event_name)) ? html_entity_decode(($event_name)) : '' ?></textarea>
-						</div>
-					</div>
-				</div>
-				<div class="row hidden-row">
-					<div class="col-md-12">
-						<div class="form-group" >
-							<label for="" class="control-label">Profile</label>
-							<div class="custom-file">
-								<input type="hidden" name="old_file" value="<?php echo isset($file_path) ? $file_path :'' ?>">
-							<input type="file" class="custom-file-input rounded-circle" id="customFile" name="img" onchange="displayImg(this,$(this))">
-							<label class="custom-file-label" for="customFile">Choose file</label>
-							</div>
-						</div>
-						<div class="form-group d-flex justify-content-center">
-							<img src="<?php echo validate_image(isset($file_path) ? $file_path :'') ?>" alt="" id="cimg" class="img-fluid img-thumbnail">
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-		<div class="card-footer">
-			<button class="btn btn-primary btn-sm" form="event"><?php echo isset($_GET['id']) ? "Update": "Save" ?></button>
-			<a class="btn btn-primary btn-sm" href="./?page=event">Cancel</a>
-		</div>
-	</div>
+    <div class="card card-outline card-primary">
+        <div class="card-header">
+            <h5 class="card-title"><?php echo isset($id) ? "Manage": "Create" ?> Event</h5>
+        </div>
+        <div class="card-body">
+            <form id="event">
+                <div class="row" class="details">
+                    <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="date" class="control-label">Date (DD-MM-YYYY)</label>
+                            <!-- Use the date selector -->
+                            <input type="date" name="date" class="form-control" value="<?php echo isset($date) ? $date : '' ?>" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="time" class="control-label">Time</label>
+                            <input type="text" name="time" class="form-control" value="<?php echo isset($time) ? $time : '' ?>" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="description" class="control-label">Event Title</label>
+                            <textarea name="description" id="description" cols="30" rows="10" class="form-control summernote"><?php echo (isset($event_name)) ? html_entity_decode(($event_name)) : '' ?></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row hidden-row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="img" class="control-label">Profile</label>
+                            <div class="custom-file">
+                                <input type="hidden" name="old_file" value="<?php echo isset($file_path) ? $file_path :'' ?>">
+                                <input type="file" class="custom-file-input rounded-circle" id="customFile" name="img" onchange="displayImg(this,$(this))">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex justify-content-center">
+                            <img src="<?php echo validate_image(isset($file_path) ? $file_path :'') ?>" alt="" id="cimg" class="img-fluid img-thumbnail">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-primary btn-sm" form="event"><?php echo isset($_GET['id']) ? "Update": "Save" ?></button>
+            <a class="btn btn-primary btn-sm" href="./?page=event">Cancel</a>
+        </div>
+    </div>
 </div>
+
 <style>
 	img#cimg{
 		height: 30vh;

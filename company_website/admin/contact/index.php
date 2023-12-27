@@ -41,16 +41,17 @@
 							<label for="" class="control-label">Facebook Page</label>
 							<div class="input-group">
 			                    <div class="input-group-prepend">
-			                      <span class="input-group-text"><i class="fa fa-facebook"></i></span>
+			                      <span class="input-group-text"><i class="fab fa-facebook"></i></span>
 			                    </div>
 			                    <input type="text" class="form-control" name="facebook" value="<?php echo isset($meta['facebook']) ? $meta['facebook'] : '' ?>">
 		                	</div>
 						</div>
+						
 						<div class="form-group">
 							<label for="" class="control-label">Youtube Channel</label>
 							<div class="input-group">
 			                    <div class="input-group-prepend">
-			                      <span class="input-group-text"><i class="fa fa-youtube"></i></span>
+			                      <span class="input-group-text"><i class="fab fa-youtube"></i></span>
 			                    </div>
 			                    <input type="text" class="form-control" name="youtube" value="<?php echo isset($meta['youtube']) ? $meta['youtube'] : '' ?>">
 		                	</div>
@@ -68,21 +69,35 @@
 							<label for="" class="control-label">Instagram Page</label>
 							<div class="input-group">
 			                    <div class="input-group-prepend">
-			                      <span class="input-group-text"><i class="fa fa-Instagram"></i></span>
+			                      <span class="input-group-text"><i class="fab fa-instagram"></i></span>
 			                    </div>
 			                    <input type="text" class="form-control" name="instagram" value="<?php echo isset($meta['instagram']) ? $meta['instagram'] : '' ?>">
 		                	</div>
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
 						<div class="form-group">
-							<label for="" class="control-label">Address</label>
-				             <textarea name="address" id="" cols="30" rows="10" class="form-control "><?php echo (isset($address)) ? ($address) : '' ?></textarea>
+							<label for="" class="control-label">Year (For Calender)</label>
+							<div class="input-group">
+			                    <div class="input-group-prepend">
+			                      <span class="input-group-text"><i class="far fa-calendar"></i></span>
+			                    </div>
+			                    <input type="text" class="form-control" name="year" value="<?php echo isset($meta['year']) ? $meta['year'] : '' ?>">
+		                	</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="control-label">Physical Address</label>
+							<div class="input-group">
+			                    <div class="input-group-prepend">
+			                      <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+			                    </div>
+			                    <input type="text" class="form-control" id="address" name="address" value="<?php echo isset($meta['address']) ? $meta['address'] : '' ?>">
+		                	</div>
 						</div>
 					</div>
 				</div>
+				
+					
+				
+				
 			</form>
 		</div>
 		<div class="card-footer">

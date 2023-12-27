@@ -2,14 +2,12 @@
 <script>
 	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success')
 </script>
-
 <?php endif;?>
-
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
 		<div class="card-header">
 			<div class="card-tools">
-				<a class="btn btn-block btn-sm btn-default btn-flat border-primary new_event" href="javascript:void(0)"><i class="fa fa-plus"></i> Add New</a>
+				<a class="btn btn-block btn-sm btn-default btn-flat border-primary new_dp" href="javascript:void(0)"><i class="fa fa-plus"></i> Add New</a>
 			</div>
 		</div>
 		<div class="card-body">
@@ -24,32 +22,36 @@
 				<thead>
 					<tr>
 						<th class="text-center">#</th>
-						<th>Event</th>
-						<th>Date</th>
-						<th>Time</th>
+						<th>Picture</th>
+						<th>Fellowship</th>
+						<th>Page Link</th>
+						<th>Admin Page Link</th>
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$i = 1;
-					$qry = $conn->query("SELECT * FROM `calender` order by `date` asc");
+					$qry = $conn->query("SELECT * FROM `dp` order by `title` asc");
 					while($row= $qry->fetch_assoc()):
-						$desc = html_entity_decode($row['event_name']);
+						$desc = html_entity_decode($row['description']);
 						$dest = strip_tags($desc);
 						$dest =stripslashes($desc);
 					?>
 					<tr>
 						<th class="text-center"><?php echo $i++ ?></th>
-						<td><b><?php echo ucwords($row['event_name']) ?></b></td>
-						<td><b><?php echo ucwords($row['date']) ?></b></td>
-						<td><b><?php echo ucwords($row['time']) ?></b></td>
+						<td class='text-center'>
+							<img src="<?php echo validate_image($row['file_path']) ?>" alt="<?php echo ucwords($row['title']) ?> Image" width="150px" height="150px" style="object-fit:scale-down;object-position:center center" class="img-thumbnail">
+						</td>
+						<td><b><?php echo ucwords($row['title']) ?></b></td>
+						<td><b><?php echo ucwords($row['link_to_page']) ?></b></td>
+						<td><b></b></td>
 						<td class="text-center">
 		                    <div class="btn-group">
-		                        <a href="javascript:void(0)" data-id='<?php echo $row['id'] ?>' class="btn btn-primary btn-flat btn-sm manage_event">
+		                        <a href="javascript:void(0)" data-id='<?php echo $row['id'] ?>' class="btn btn-primary btn-flat btn-sm manage_dp">
 		                          <i class="fas fa-edit"></i>
 		                        </a>
-		                        <button type="button" class="btn btn-danger btn-sm btn-flat delete_event" data-id="<?php echo $row['id'] ?>">
+		                        <button type="button" class="btn btn-danger btn-sm btn-flat delete_dp" data-id="<?php echo $row['id'] ?>">
 		                          <i class="fas fa-trash"></i>
 		                        </button>
 	                      </div>
@@ -64,21 +66,21 @@
 <script>
 
 	$(document).ready(function(){
-		$('.new_event').click(function(){
-			location.href = _base_url_+"admin/?page=event/manage";
+		$('.new_dp').click(function(){
+			location.href = _base_url_+"admin/?page=fellowship_displaypicture/manage";
 		})
-		$('.manage_event').click(function(){
-			location.href = _base_url_+"admin/?page=event/manage&id="+$(this).attr('data-id')
+		$('.manage_dp').click(function(){
+			location.href = _base_url_+"admin/?page=fellowship_displaypicture/manage&id="+$(this).attr('data-id')
 		})
-		$('.delete_event').click(function(){
-		_conf("Are you sure to delete this event?","delete_event",[$(this).attr('data-id')])
+		$('.delete_dp').click(function(){
+		_conf("Are you sure to delete this Flashcard?","delete_dp",[$(this).attr('data-id')])
 		})
 		$('#list').dataTable()
 	})
-	function delete_event($id){
+	function delete_dp($id){
 		start_loader()
 		$.ajax({
-			url:_base_url_+'classes/Content.php?f=event_delete',
+			url:_base_url_+'classes/Content.php?f=dp_delete',
 			method:'POST',
 			data:{id:$id},
 			dataType:'json',
