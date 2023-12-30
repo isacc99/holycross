@@ -59,6 +59,8 @@ $result = $conn->query("SELECT weekday, event_name, time, STR_TO_DATE(date, '%d-
 <html lang="en">
 
 <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-mQwYYMOvqJKdIKBzIep8qN7H5XD6FZyo+scNTjQF+5MIlUcGxZc0poYxjkj5JbIl" crossorigin="anonymous">
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -89,6 +91,17 @@ $result = $conn->query("SELECT weekday, event_name, time, STR_TO_DATE(date, '%d-
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+    .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px; /* Adjust the size of the play icon */
+    color: #fff; /* Adjust the color of the play icon */
+    cursor: pointer;
+}
+</style>
   <script type="text/javascript">
 
     var msg = new Array();
@@ -485,10 +498,10 @@ msg[371]="Let those who love the Lord hate evil, for he guards the lives of his 
 
       <div id="logo" class="me-auto">
         <!-- Uncomment below if you prefer to use a text logo -->
-        <!-- <h1><a href="index.html">The<span>Event</span></a></h1>
-       <!--<a href="index.html" class="scrollto"><img src="assets/img/logo.png" alt="" title=""></a> -->
+        <!-- <h1><a href="index..php">The<span>Event</span></a></h1>
+       <!--<a href="index..php" class="scrollto"><img src="assets/img/logo.png" alt="" title=""></a> -->
         
-        <a href="index.html" class="scrollto"><img src=<?php echo validate_image($_settings->info('logo')) ?> alt="" title=""></a>
+        <a href="index.php" class="scrollto"><img src=<?php echo validate_image($_settings->info('logo')) ?> alt="" title=""></a>
         <div id="texts" style="display:inline; white-space:nowrap; color: white; " >
               <b><?php echo $_settings->info('short_name') ?></b></div>
       </div>
@@ -609,21 +622,23 @@ foreach ($youtubeVideoIds as $videoId) {
 </div>
 
 <div class="gallery-slider swiper">
-  <div class="swiper-wrapper align-items-center">
-    <?php foreach ($videos as $video): ?>
-      <div class="swiper-slide">
-        <a href="<?= $video['url']; ?>" target="_blank" class="gallery-lightbox">
-        <img src="<?= $video['thumbnail']; ?>" class="img-fluid" alt="">
-        </a>
-      </div>
-    <?php endforeach; ?> 
-  </div>
-  <div class="swiper-pagination"></div>
-</div>
+        <div class="swiper-wrapper align-items-center">
+            <?php foreach ($videos as $video): ?>
+                <div class="swiper-slide">
+                    <a href="<?= $video['url']; ?>" target="_blank" class="gallery-lightbox">
+                        <!-- Add YouTube play icon here -->
+                        <div class="play-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <img src="<?= $video['thumbnail']; ?>" class="img-fluid" alt="">
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="swiper-pagination"></div>
     </div>
+</div>
 </section>
-    <br><br>
-  </section>
 <section>
   <div class="section-header" data-aos="fade-up" data-aos-delay="200">
     <h2><?php echo $churchtime['heading'] ?></h2>
@@ -700,7 +715,7 @@ if ($resultdp->num_rows > 0) {
     echo "<div class='row schedule-item'>" ;
   echo "<div class='col-md-2'><time>". $row["date"]."</time></div>";
   echo  "<div class='col-md-10'>";
-  echo "<h4>".$row["event_name"]. "</h4>";
+  echo "<h4>".html_entity_decode(strip_tags($row["event_name"])). "</h4>";
   echo "<div>";
   echo "<p>".$row["weekday"]. "</p></div>";
   echo "<p>".$row["time"]. "</p></div></div>";
@@ -1182,7 +1197,6 @@ if ($resultgal->num_rows > 0) {
 </section>
 
 <section id="supporters" class="section-with-bg">
-
   <div class="container" data-aos="fade-up">
     <div class="section-header">
       <h2>Pastorate committee</h2>
@@ -1190,51 +1204,50 @@ if ($resultgal->num_rows > 0) {
     </div>
 
     <style>
-        /* Add some basic styling to make it look better */
-      
-        
-        .person-box {
-            width: 350px;
-            text-align: center;
-            margin: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        
-    </style><div >
-    <div class="row no-gutters supporters-wrap clearfix" data-aos="zoom-in" data-aos-delay="100" >
+      .person-box {
+        width: 350px;
+        text-align: center;
+        margin: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
 
-<?php
-// Your existing PHP code to fetch data
-$file_qry = $conn->query("SELECT id, title, description, file_path, date_created, date_updated FROM pastoratecommittee");
+      .person-box img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 50%;
+        width: 150px; /* Set a fixed width for the circular image */
+        height: 150px; /* Set a fixed height for the circular image */
+        object-fit: cover; /* Maintain the aspect ratio and cover the container */
+      }
+    </style>
 
-while($file_row = $file_qry->fetch_assoc()){
-    // Access the data using the column names
-    $file_title = $file_row['title'];
-    $file_path = $file_row['file_path'];
-    $file_description =html_entity_decode(strip_tags($file_row['description']));
-?>
+    <div>
+      <div class="row no-gutters supporters-wrap clearfix" data-aos="zoom-in" data-aos-delay="100">
+        <?php
+        // Your existing PHP code to fetch data
+        $file_qry = $conn->query("SELECT id, title, description, file_path, date_created, date_updated FROM pastoratecommittee");
 
-<div class="person-box">
+        while ($file_row = $file_qry->fetch_assoc()) {
+          // Access the data using the column names
+          $file_title = $file_row['title'];
+          $file_path = $file_row['file_path'];
+          $file_description = html_entity_decode(strip_tags($file_row['description']));
+        ?>
 
-    <img src="<?php echo $file_path; ?>" alt="<?php echo $file_title; ?>" style="max-width: 100%; height: auto; border-radius: 50%;">
-    <h3><?php echo $file_title; ?></h3>
-    <h5><?php echo $file_description; ?></h5>
-</div>
+          <div class="person-box">
+            <img src="<?php echo $file_path; ?>" alt="<?php echo $file_title; ?>">
+            <h3><?php echo $file_title; ?></h3>
+            <h5><?php echo $file_description; ?></h5>
+          </div>
 
-<?php
-} // End of while loop
-?>
-
+        <?php
+        } // End of while loop
+        ?>
+      </div>
     </div>
-    </div>
-
-    </div>
-    </div>
-
   </div>
-
 </section>
 
 
@@ -1297,11 +1310,11 @@ while($file_row = $file_qry->fetch_assoc()){
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="Men.html">Men's Fellowship</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="Women.html">Women's Fellowship</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="Youth.html">Youth Fellowship</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="SundaySchool.html">Sunday School</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="PreSchool.html">Pre School</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="men.php">Men's Fellowship</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="women.php">Women's Fellowship</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="youth.php">Youth Fellowship</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="sundayschool.php">Sunday School</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="preSchool.php">Pre School</a></li>
             </ul>
           </div>
 

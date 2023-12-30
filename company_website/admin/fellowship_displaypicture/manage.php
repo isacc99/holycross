@@ -20,12 +20,22 @@ if(isset($_GET['id'])){
 		</div>
 		<div class="card-body">
 			<form id="dp">
+			<div class="row" class="details">
+    <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="title" class="control-label">Fellowship Name ("Please prefix any special characters with \ " Ex: Men\'s Fellowship)</label>
+            <textarea name="title" cols="30" rows="2" class="form-control"><?php echo isset($title) ? htmlspecialchars($title) : '' ?></textarea>
+        </div>
+    </div>
+</div>
+
 				<div class="row" class="details">
 					<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label for="title" class="control-label">Fellowship Name ("Please prefix any special charecters with \ " Ex: Men\'s Fellowship)</label>
-							<textarea name="title" cols="30" rows="2" class="form-control"><?php echo isset($title) ? $title : '' ?></textarea>
+							<label for="title" class="control-label">Link to Page</label>
+							<textarea name="link_to_page" cols="30" rows="2" class="form-control"><?php echo isset($link_to_page) ? $link_to_page : '' ?></textarea>
 						</div>
 					</div>
 				</div>
@@ -33,8 +43,8 @@ if(isset($_GET['id'])){
 					<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label for="title" class="control-label">Link to Page</label>
-							<textarea name="link_to_page" cols="30" rows="2" class="form-control"><?php echo isset($link_to_page) ? $link_to_page : '' ?></textarea>
+							<label for="title" class="control-label">Fellowship intro</label>
+							<textarea name="intro" cols="30" rows="2" class="form-control"><?php echo isset($intro) ? $intro : '' ?></textarea>
 						</div>
 					</div>
 				</div>

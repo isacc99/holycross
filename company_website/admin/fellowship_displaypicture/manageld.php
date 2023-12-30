@@ -5,7 +5,7 @@
 <?php endif;?>
 <?php 
 if(isset($_GET['id'])){
-	$qry = $conn->query("SELECT * from `about` where id = '{$_GET['id']}' ");
+	$qry = $conn->query("SELECT * from `leaders` where id = '{$_GET['id']}' ");
 	foreach($qry->fetch_array() as $k => $v){
 		if(!is_numeric($k)){
 			$$k = $v;
@@ -16,24 +16,35 @@ if(isset($_GET['id'])){
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
 		<div class="card-header">
-			<h5 class="card-title"><?php echo isset($id) ? "Manage": "Create" ?> About</h5>
+			<h5 class="card-title"><?php echo isset($id) ? "Manage": "Create" ?> Leaders</h5>
 		</div>
 		<div class="card-body">
-			<form id="about">
+			<form id="leaders">
+			<div class="row" class="details">
+    <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="title" class="control-label">Name </label>
+            <textarea name="title" cols="30" rows="2" class="form-control"><?php echo isset($title) ? htmlspecialchars($title) : '' ?></textarea>
+        </div>
+    </div>
+</div>
+
 				<div class="row" class="details">
 					<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label for="title" class="control-label">Name</label>
-							<textarea name="title" cols="30" rows="2" class="form-control"><?php echo isset($title) ? $title : '' ?></textarea>
+							<label for="title" class="control-label">Fellowship (mens, womens,preschool, senior, sundayschool, youth)</label>
+							<textarea name="fellowship" cols="30" rows="2" class="form-control"><?php echo isset($fellowship) ? $fellowship : '' ?></textarea>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-sm-12">
+				<div class="row" class="details">
+					<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
+					<div class="col-sm-6">
 						<div class="form-group">
-							<label for="" class="control-label">Designation</label>
-				             <textarea name="description" id="" cols="30" rows="10" class="form-control summernote"><?php echo (isset($description)) ? html_entity_decode(($description)) : '' ?></textarea>
+							<label for="title" class="control-label">Message</label>
+							<textarea name="description" cols="30" rows="2" class="form-control"><?php echo isset($description) ? $description : '' ?></textarea>
 						</div>
 					</div>
 				</div>
@@ -41,7 +52,7 @@ if(isset($_GET['id'])){
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
-							<label for="" class="control-label">Profile</label>
+							<label for="" class="control-label">Display Picture</label>
 							<div class="custom-file">
 								<input type="hidden" name="old_file" value="<?php echo isset($file_path) ? $file_path :'' ?>">
 							<input type="file" class="custom-file-input rounded-circle" id="customFile" name="img" onchange="displayImg(this,$(this))">
@@ -56,8 +67,8 @@ if(isset($_GET['id'])){
 			</form>
 		</div>
 		<div class="card-footer">
-			<button class="btn btn-primary btn-sm" form="about"><?php echo isset($_GET['id']) ? "Update": "Save" ?></button>
-			<a class="btn btn-primary btn-sm" href="./?page=about">Cancel</a>
+			<button class="btn btn-primary btn-sm" form="leaders"><?php echo isset($_GET['id']) ? "Update": "Save" ?></button>
+			<a class="btn btn-primary btn-sm" href="./?page=fellowship_displaypicture">Cancel</a>
 		</div>
 	</div>
 </div>
@@ -82,11 +93,11 @@ function displayImg(input,_this) {
 	}
 	$(document).ready(function(){
 		$('.select')
-		$('#about').submit(function(e){
+		$('#leaders').submit(function(e){
 			e.preventDefault();
 			start_loader();
 			$.ajax({
-				url:_base_url_+"classes/Content.php?f=about",
+				url:_base_url_+"classes/Content.php?f=leaders",
 				data: new FormData($(this)[0]),
 				cache: false,
 				contentType: false,
@@ -102,7 +113,7 @@ function displayImg(input,_this) {
 				success:function(resp){
 					if(resp != undefined){
 						if(resp.status == 'success'){
-							location.href=_base_url_+"admin/?page=about";
+							location.href=_base_url_+"admin/?page=fellowship_displaypicture";
 						}else{
 							alert_toast("An error occured",'error')
 							console.log(resp);

@@ -5,7 +5,7 @@
 <?php endif;?>
 <?php 
 if(isset($_GET['id'])){
-	$qry = $conn->query("SELECT * from `about` where id = '{$_GET['id']}' ");
+	$qry = $conn->query("SELECT * from `mens` where id = '{$_GET['id']}' ");
 	foreach($qry->fetch_array() as $k => $v){
 		if(!is_numeric($k)){
 			$$k = $v;
@@ -16,10 +16,10 @@ if(isset($_GET['id'])){
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
 		<div class="card-header">
-			<h5 class="card-title"><?php echo isset($id) ? "Manage": "Create" ?> About</h5>
+			<h5 class="card-title"><?php echo isset($id) ? "Manage": "Create" ?> Committee</h5>
 		</div>
 		<div class="card-body">
-			<form id="about">
+			<form id="mens">
 				<div class="row" class="details">
 					<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
 					<div class="col-sm-6">
@@ -37,7 +37,6 @@ if(isset($_GET['id'])){
 						</div>
 					</div>
 				</div>
-				
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
@@ -56,8 +55,8 @@ if(isset($_GET['id'])){
 			</form>
 		</div>
 		<div class="card-footer">
-			<button class="btn btn-primary btn-sm" form="about"><?php echo isset($_GET['id']) ? "Update": "Save" ?></button>
-			<a class="btn btn-primary btn-sm" href="./?page=about">Cancel</a>
+			<button class="btn btn-primary btn-sm" form="mens"><?php echo isset($_GET['id']) ? "Update": "Save" ?></button>
+			<a class="btn btn-primary btn-sm" href="./?page=men">Cancel</a>
 		</div>
 	</div>
 </div>
@@ -82,11 +81,11 @@ function displayImg(input,_this) {
 	}
 	$(document).ready(function(){
 		$('.select')
-		$('#about').submit(function(e){
+		$('#mens').submit(function(e){
 			e.preventDefault();
 			start_loader();
 			$.ajax({
-				url:_base_url_+"classes/Content.php?f=about",
+				url:_base_url_+"classes/Content.php?f=mens",
 				data: new FormData($(this)[0]),
 				cache: false,
 				contentType: false,
@@ -102,7 +101,7 @@ function displayImg(input,_this) {
 				success:function(resp){
 					if(resp != undefined){
 						if(resp.status == 'success'){
-							location.href=_base_url_+"admin/?page=about";
+							location.href=_base_url_+"admin/?page=men";
 						}else{
 							alert_toast("An error occured",'error')
 							console.log(resp);

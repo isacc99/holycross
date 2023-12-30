@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+ 
 <?php require_once('config.php'); ?>
 <?php 
 if(isset($_SESSION['msg_status'])){
@@ -118,6 +119,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- =======================================================
   * Template Name: TheEvent - v4.7.0
@@ -135,7 +137,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
       <div id="logo" class="me-auto">
 
-        <!--<h1><a href="index.html">CSI Holy Cross Church</span></a></h1>-->
+        <!--<h1><a href="index.php">CSI Holy Cross Church</span></a></h1>-->
         <a href="index.php" class="scrollto"><img src=<?php echo validate_image($_settings->info('logo')) ?> alt="" title=""></a>
        
         <div id="texts" style="display:inline; white-space:nowrap; color: white; " >
@@ -143,30 +145,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
       </div>
   </div>
   <nav id="navbar" class="navbar order-last order-lg-0">
+  <i class="bi bi-list mobile-nav-toggle"></i>
     <ul>
 
       <li><a class="nav-link scrollto" href="./index.php">Home</a></li>
-      <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
-      <li class="dropdown"><a href="#"><span>Fellowships</span> <i class="bi bi-chevron-down"></i></a>
-        <ul>
-          <li><a href="../csi2/Youth.html">Youth Fellowship</a></li>
-          <li><a href="../csi2/Mens.html">Men’s Fellowship</a></li>
-          <li><a href="../csi2/Womens.html">Women’s Fellowship</a></li>
-          <li><a href="../csi2/Preschool.html">Pre School</a></li>
-          <li><a href="../csi2/Sundayschool.html">Sunday School</a></li>
-          <li><a href="../csi2/Music.html">Music and Choir</a></li>
-          <li><a href="../csi2/VBS.html">VBS</a></li>
-        </ul>
-      </li>
-      <li><a class="nav-link scrollto" href="#about">Prayer Request</a></li>
-      <li><a class="nav-link scrollto" href="#Resources">Resources</a></li>
-      <li><a class="nav-link scrollto" href="#contact">Blog</a></li>
-      
+      <li><a class="nav-link scrollto active" href="#speakers-details">About</a></li>
+      <li><a class="nav-link scrollto" href="#Golden_Dates">Golden Dates</a></li>
+      <li><a class="nav-link scrollto" href="#schedule">HCC Pastors</a></li>
+      <li><a class="nav-link scrollto" href="#hotels">Founders</a></li>
      
-
-
-    
-      <li><a class="nav-link scrollto" href="#Contact Us">Contact Us</a></li>
     </ul>
   <!--  <i class="bi bi-list mobile-nav-toggle"></i>
   </nav>
@@ -185,12 +172,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 $query = $conn->query("SELECT * FROM about");
 $rows = $query->fetch_all(MYSQLI_ASSOC);
 ?>
-
+   <?php $e_qry = $conn->query("SELECT * FROM contacts");
+while($row = $e_qry->fetch_assoc()){
+    $contacts[$row['meta_field']] = $row['meta_value'];
+}?>
 <section id="speakers-details" data-aos="fade-up">
     <div class="container">
         <div class="section-header">
             <h2>CSI Holy Cross Church</h2>
-            <p style="color:grey;">911, Subroto Mukherji Road, Jalahalli, Bangalore 560015</p>
+            <p style="color:grey;"><?php echo $contacts['address'] ?></p>
         </div>
 
         <?php foreach ($rows as $key => $row): 
@@ -224,650 +214,211 @@ $rows = $query->fetch_all(MYSQLI_ASSOC);
             <br><br>
         <?php endforeach; ?>
     </div>
-</section>
+    <?php
+// Assuming $conn is the database connection variable
 
-          <div class="container"  data-aos="fade-up">
-            <div class="row text-center justify-content-center mb-5">
-                <div class="col-xl-6 col-lg-8">
-                  <br><br>  <h2>Golden Dates</h2>
-                                    </div>
+// Fetch data from the database
+$query = $conn->query("SELECT * FROM goldendates");
+$rows = $query->fetch_all(MYSQLI_ASSOC);
+?>
+
+<section id="Golden_Dates" data-aos="fade-up">
+    <div class="container">
+        <div class="row text-center justify-content-center mb-5">
+            <div class="col-xl-6 col-lg-8">
+                <br><br><h2>Golden Dates</h2>
             </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="timeline-steps aos-init aos-animate" data-aos="fade-up">
-                        <div class="timeline-step">
-                            <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2003">
-                                <div class="inner-circle" style =" border-radius: 1.5rem;
-                                  height: 1rem;
-                                  width: 1rem;
-                                  display: inline-flex;
-                                  align-items: center;
-                                  justify-content: center;
-                                  background-color: rgb(35, 32, 183)"></div>
-                                <p class="h6 mt-3 mb-1">19 November 1944</p>
-                                <p class="h6 text-muted mb-0 mb-lg-0">Church Service Opened at The Garrison Chapel</p>
-                            </div>
-                        </div>
-                        <div class="timeline-step">
-                            <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2004">
-                                <div class="inner-circle"></div>
-                                <p class="h6 mt-3 mb-1">1952</p>
-                                <p class="h6 text-muted mb-0 mb-lg-0">1st Church Building was Dedicated</p>
-                            </div>
-                        </div>
-                        <div class="timeline-step">
-                            <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2005">
-                                <div class="inner-circle"></div>
-                                <p class="h6 mt-3 mb-1">18 December 1977</p>
-                                <p class="h6 text-muted mb-0 mb-lg-0">2nd Church Building was Dedicated</p>
-                            </div>
-                        </div>
-                        <div class="timeline-step">
-                          <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2010">
-                              <div class="inner-circle"></div>
-                              <p class="h6 mt-3 mb-1">20th November 1994</p>
-                              <p class="h6 text-muted mb-0 mb-lg-0">Golden Jubilee</p>
-                          </div>
-                      </div>
-                        <div class="timeline-step">
-                            <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2010">
-                                <div class="inner-circle"></div>
-                                <p class="h6 mt-3 mb-1">13 April 2003</p>
-                                <p class="h6 text-muted mb-0 mb-lg-0">Present Church Building was Dedicated</p>
-                            </div>
-                        </div>
-                        <div class="timeline-step">
-                          <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2010">
-                              <div class="inner-circle"></div>
-                              <p class="h6 mt-3 mb-1">2019</p>
-                              <p class="h6 text-muted mb-0 mb-lg-0">75th Anniversary</p>
-                          </div>
-                      </div>
-
-                </div>
-            </div>
-            </section>
-
-            <section id="schedule" class="section-with-bg">
-              <div class="container" data-aos="fade-up">
-                <div class="section-header">
-                  <h2>Pastors At Holy Cross</h2>
-              
-                </div>
-
-
-
-                <h3 class="sub-heading">Timeline from available Church records </h3>
-
-                <div class="tab-content row justify-content-center" data-aos="fade-up" data-aos-delay="200">
-
-                  <!-- Schdule Day 1 -->
-                  <div role="tabpanel" class="col-lg-9 tab-pane fade show active" id="day-1">
-
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1944</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Dr.<span>Banyan</span></h4>
-                        <p>Garrison Chaplain</p>
-                      </div>
-                    </div>
-
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1947 or 1948</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Canon Lazarus </span></h4>
-                        <p>Brotherhood of St. Peter</p>
-                       <span><br><br></span>
-                       <div class="speaker">
-                        <img src="assets/img/2.jpg" alt="Brenden Legros">
-                      </div>
-                        <h4>Rev. <span>Lokapathy</span></h4>
-                        <p>St. Paul's Church</p>
-                      </div>
-                    </div>
-
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1952-1960</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4><br><span>UTC STAFF</span></h4>
-
-                      </div>
-                    </div>
-
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1960</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Harry Daniel</span></h4>
-                        <p>Presbyter St. Mark's Cathedral and Chairman, Advisory Comittee HCC</p>
-                      </div>
-                    </div>
-
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1965</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>W. V Karl</span></h4>
-                        <p>Director of City Mission Council, Chairman, Advisory Committee</p>
-                      </div>
-                    </div>
-
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1969</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>S.Samuel</span></h4>
-                        <p>Director of City Mission Council, Chairman, Advisory Committee</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                     <div class="col-md-2"><time>1974-1975</time></div>
-                       <div class="col-md-10">
-                         <div class="speaker">
-                           <img src="assets/img/2.jpg" alt="Brenden Legros">
-                         </div>
-                         <h4>Rev. <span>James Williams</span></h4>
-                          <p>Director of City Mission Council, Chairman, Advisory Committee</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1974-1975</time></div>
-                        <div class="col-md-10">
-                          <div class="speaker">
-                            <img src="assets/img/2.jpg" alt="Brenden Legros">
-                          </div>
-                          <h4>Rev. <span>F.S. Macwana</span></h4>
-                           <p>Presbter-in-charge</p>
-                       </div>
-                     </div>
-                     <div class="row schedule-item">
-                      <div class="col-md-2"><time>1975</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Prabu Das </span></h4>
-                        <p>UTC</p>
-                       <span><br><br></span>
-                       <div class="speaker">
-                        <img src="assets/img/2.jpg" alt="Brenden Legros">
-                      </div>
-                        <h4>Rev. <span>Peter Millar</span></h4>
-                        <p>UTC</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1978</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>S. Samuel</span></h4>
-                        <p>Director, UCE</p>
-                       <span><br><br></span>
-                       <div class="speaker">
-                        <img src="assets/img/2.jpg" alt="Brenden Legros">
-                      </div>
-                        <h4>Rev. <span>G. D. Melancthon</span></h4>
-                        <p>Pastor-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1978</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>S. Samuel</span></h4>
-                        <p>Director, UCE</p>
-                       <span><br><br></span>
-                       <div class="speaker">
-                        <img src="assets/img/2.jpg" alt="Brenden Legros">
-                      </div>
-                        <h4>Rev. <span>F. S. Macwana</span></h4>
-                        <p>Pastor-in-charge</p>
-                      </div>
-                    </div>
-
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1979</time></div>
-                        <div class="col-md-10">
-                          <div class="speaker">
-                            <img src="assets/img/2.jpg" alt="Brenden Legros">
-                          </div>
-                          <h4>Rev. <span>F. S Macwana</span></h4>
-                           <p>Presbyter/Chairman</p>
-                       </div>
-                     </div>
-                     <div class="row schedule-item">
-                      <div class="col-md-2"><time>1982</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>James Williams</span></h4>
-                        <p>Director, UCE</p>
-                       <span><br><br></span>
-                       <div class="speaker">
-                        <img src="assets/img/2.jpg" alt="Brenden Legros">
-                      </div>
-                        <h4>Rev. <span>Vincent Rajkumar</span></h4>
-                        <p></p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1983</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Solomon Gnanaraj</span></h4>
-                        <p>Director, UCE</p>
-                       <span><br><br></span>
-                       <div class="speaker">
-                        <img src="assets/img/2.jpg" alt="Brenden Legros">
-                      </div>
-                        <h4>Rev. <span>D. G. S. Rodricks</span></h4>
-                        <p>Pastor-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1984</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>V. K. Samuel</span></h4>
-                        <p>Director, UCE</p>
-                       <span><br><br></span>
-                       <div class="speaker">
-                        <img src="assets/img/2.jpg" alt="Brenden Legros">
-                      </div>
-                        <h4>Rev. <span>D.G.S. Rodrics</span></h4>
-                        <p>Pastor-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1984</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>V. K. Samuel</span></h4>
-                        <p>Director, UCE</p>
-                       <span><br><br></span>
-                       <div class="speaker">
-                        <img src="assets/img/2.jpg" alt="Brenden Legros">
-                      </div>
-                        <h4>Rev. <span>M.D.E. Barnabas</span></h4>
-                        <p>Residental Pastor</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1986</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>J. R. Henry</span></h4>
-                        <p>Civil Area Chairman</p>
-                       <span><br><br></span>
-                       <div class="speaker">
-                        <img src="assets/img/2.jpg" alt="Brenden Legros">
-                      </div>
-                        <h4>Rev. <span>M.D.E. Barnabas</span></h4>
-                        <p>Residental Pastor</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1960</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Arunkumar Wesley</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1990</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Daniel Ravikumar</span></h4>
-                        <p>PC Chairman</p>
-                       <span><br><br></span>
-                       <div class="speaker">
-                        <img src="assets/img/2.jpg" alt="Brenden Legros">
-                      </div>
-                        <h4>Rev. <span>Job Jeyaraj</span></h4>
-                        <p>Resident Pastor</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1990</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Daniel Ravikumar</span></h4>
-                        <p>PC Chairman</p>
-                       <span><br><br></span>
-                       <div class="speaker">
-                        <img src="assets/img/2.jpg" alt="Brenden Legros">
-                      </div>
-                        <h4>Rev. <span>Gnana Thomas</span></h4>
-                        <p>Presbyter or Resident Pastor</p>
-                      </div>
-                    </div>
-
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1992-1997</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>J.D. David Rajan</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1997-1999</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Joshua Inbakumar</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>1999-2003</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Sathyanadh</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>2003-2005</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Daniel Ravikumar</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>2005-2006</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Jeevan Babu</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>2006-2008</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Florence Deenadayalan</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>2008 - 2013</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>B.P. Timothy</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>2013-2015</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Violet Cury</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>2015</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Gnana Selvi</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>2015</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Job Jeyaraj</span></h4>
-                        <p>Presbyter-in-charge</p>
-                       <span><br><br></span>
-                       <div class="speaker">
-                        <img src="assets/img/2.jpg" alt="Brenden Legros">
-                      </div>
-                        <h4>Rev. <span>Rajasingh</span></h4>
-                        <p>Resident Pastor </p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>2015</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Ambler</span></h4>
-                        <p>Presbyter-in-charge</p>
-                       <span><br><br></span>
-                       <div class="speaker">
-                        <img src="assets/img/2.jpg" alt="Brenden Legros">
-                      </div>
-                        <h4>Rev. <span>Rajasingh</span></h4>
-                        <p>Resident Pastor </p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>2015-2017</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Rajasingh</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>2017-2020</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Tabitha Cedric</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>2020-2022</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Christopher Samuel</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>2022-2023</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>Asha Karthik</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-                    <div class="row schedule-item">
-                      <div class="col-md-2"><time>2023 -- Present</time></div>
-                      <div class="col-md-10">
-                        <div class="speaker">
-                          <img src="assets/img/2.jpg" alt="Brenden Legros">
-                        </div>
-                        <h4>Rev. <span>P.V.G Kumar</span></h4>
-                        <p>Presbyter-in-charge</p>
-                      </div>
-                    </div>
-
-
-
-
-                  </div>
-
-
-
-                </div>
         </div>
 
-      </div>
+        <div class="row">
+            <div class="col">
+                <div class="timeline-steps aos-init aos-animate" data-aos="fade-up">
+                    <?php foreach ($rows as $row): ?>
+                        <div class="timeline-step">
+                            <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="<?php echo $row['description']; ?>" data-original-title="<?php echo $row['title']; ?>">
+                                <div class="inner-circle" style="border-radius: 1.5rem;
+                                        height: 1rem;
+                                        width: 1rem;
+                                        display: inline-flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        background-color: rgb(35, 32, 183)"></div>
+                                <p class="h6 mt-3 mb-1"><?php echo $row['title']; ?></p>
+                                <p class="h6 text-muted mb-0 mb-lg-0"><?php echo html_entity_decode(strip_tags($row['description'])); ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    </section>
-    <section id="hotels" class="section-with-bg">
+<section id="schedule" class="section-with-bg">
+  <div class="container" data-aos="fade-up">
+    <div class="section-header">
+      <h2>Pastors At Holy Cross</h2>
+    </div>
 
-      <div class="container" data-aos="fade-up">
+    <h3 class="sub-heading">Timeline from available Church records </h3>
+
+    <div class="tab-content row justify-content-center" data-aos="fade-up" data-aos-delay="200">
+      <?php
+      // Assuming $conn is the database connection variable
+
+      // Function to get pastor details from the database
+      function getPastorDetails($row) {
+        return array(
+          'year' => $row['year'],
+          'name' => $row['title'], // Assuming the name is stored in the 'title' column
+          'designation' => $row['description'],
+          'image' => $row['file_path']
+        );
+      }
+
+      // Fetch pastor details from the database
+      $result = $conn->query("SELECT * FROM pastpastors ORDER BY year ASC");
+      $currentYear = null;
+      while ($row = $result->fetch_assoc()) {
+        $pastor = getPastorDetails($row);
+
+        if ($pastor['year'] != $currentYear) {
+          if ($currentYear !== null) {
+            echo '</div>'; // Close the previous div if it's not the first iteration
+          }
+          $currentYear = $pastor['year'];
+          echo '<div role="tabpanel" class="col-lg-9 tab-pane fade show active" id="day-1">';
+        }
+      ?>
+        <div class="row schedule-item">
+          <div class="col-md-2"><time><?php echo $pastor['year']; ?></time></div>
+          <div class="col-md-10">
+            <div class="speaker">
+              <img src="<?php echo $pastor['image']; ?>" alt="<?php echo $pastor['name']; ?>">
+            </div>
+            <h4><?php echo $pastor['name']; ?></h4>
+            <p><?php echo html_entity_decode(strip_tags($pastor['designation'])); ?></p>
+          </div>
+        </div>
+      <?php
+      }
+      echo '</div>'; // Close the last div
+      ?>
+    </div>
+  </div>
+</section>
+
+
+<section id="hotels" class="section-with-bg">
+    <div class="container" data-aos="fade-up">
         <div class="section-header">
-          <h2>Tribute to Founders</h2>
-          <p>Sub heading</p>
+            <h2>Tribute to Founders</h2>
+            <p>Profiles of a Few Visionary Founders</p>
         </div>
 
         <div class="row" data-aos="fade-up" data-aos-delay="100">
+            <?php
+            // Assuming $conn is the database connection variable
 
-          <div class="col-lg-4 col-md-6">
-            <div class="hotel">
-              <div class="hotel-img">
-                <img src="assets/img/hotels/Untitled.png" alt="Devadason" class="img-fluid">
-              </div>
-              <h3><a href="#">Mr. B Devadason</a></h3>
+            // Fetch data from the tribute table
+            $result = $conn->query("SELECT * FROM tribute");
 
-              <p>Mr Devadason served this church with passion and commitment as secretary and treasurer from 1952-1975. The seed for a small place of worship was planted in the early years of independence, starting by way of Sunday worship in his residence and that of Mr G.R. Henry. His passion to build a small Chapel enthused him to give his time and energy for this. He managed to build a small chapel on the present land donated by Mr. G.R. Henry and was dedicated as Holy Cross Church in 1952.  </p>
-            </div>
+            // Loop through the rows and generate HTML
+            while ($row = $result->fetch_assoc()) {
+                ?>
+                <div class="col-lg-4 col-md-6">
+                    <div class="hotel">
+                        <div class="hotel-img">
+                            <img src="<?php echo $row['file_path']; ?>" alt="<?php echo $row['title']; ?>" class="img-fluid">
+                        </div>
+                        <h3><a href="#"><?php echo $row['title']; ?></a></h3>
+                        <p><?php echo html_entity_decode(strip_tags($row['description'])); ?></p>
+                    </div>
+                </div>
+                <?php
+            }
+            ?>
+        </div>
+    </div>
+</section>
+<!-- End Hotels Section -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-info">
+            <img src="assets/img/logo.png" alt="TheEvenet">
+            <p>Keep us, the Holy Cross family in your prayers. God Bless You!!</p>
           </div>
 
-          <div class="col-lg-4 col-md-6">
-            <div class="hotel">
-              <div class="hotel-img">
-                <img src="assets/img/hotels/dummy-image.jpg" alt="Hotel 2" class="img-fluid">
-              </div>
-              <h3><a href="#">ABC</a></h3>
-
-              <p>ABC</p>
-            </div>
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="men.php">Men's Fellowship</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="women.php">Women's Fellowship</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="youth.php">Youth Fellowship</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="sundayschool.php">Sunday School</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="preschool.php">Pre School</a></li>
+            </ul>
           </div>
 
-          <div class="col-lg-4 col-md-6">
-            <div class="hotel">
-              <div class="hotel-img">
-                <img src="assets/img/hotels/dummy-image.jpg" alt="Hotel 3" class="img-fluid">
-              </div>
-              <h3><a href="#">ABC</a></h3>
+          <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Service Timing</h4>
+         <?php $c_qry = $conn->query("SELECT * FROM churchtime");
+while($row = $c_qry->fetch_assoc()){
+    $churchtime[$row['meta_field']] = $row['meta_value'];
+} ?>
 
-              <p>ABC</p>
+          
+          <br> <p><?php echo $churchtime['Sunday_Service'] ?></p>
+    <p><?php echo $churchtime['Sunday_School'] ?></p>
+    <p> <?php echo $churchtime['Communion'] ?></p>
+    <p><?php echo $churchtime['Praise_&_worship'] ?></p>
+          </div>
+       
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Contact Us</h4>
+            <p>
+              <?php echo $contacts['address'] ?> <br>
+            <strong>Phone:</strong>  <?php echo $contacts['mobile'] ?><br>
+            <strong>Email:</strong>  <?php echo $contacts['email'] ?><br>
+          </p>
+
+
+            </p>
+
+            <div class="social-links">
+              
+              <a href="https://www.facebook.com/p/CSI-Holy-Cross-Church-100069608255007/" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href=" <?php echo $contacts['instagram'] ?>" class="instagram"><i class="bi bi-instagram"></i></a>
+              <a href=" <?php echo $contacts['youtube'] ?>" class="google-plus"><i class="bi bi-youtube"></i></a>
+             
             </div>
+
           </div>
 
         </div>
       </div>
+    </div>
 
-    </section><!-- End Hotels Section -->
-
-    <footer id="footer">
-      <div class="footer-top">
-        <div class="container">
-          <div class="row">
-
-            <div class="col-lg-3 col-md-6 footer-info">
-              <img src="assets/img/logo.png" alt="TheEvenet">
-              <p>Keep us, the Holy Cross family in your prayers. God Bless You!!</p>
-            </div>
-
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Useful Links</h4>
-              <ul>
-                <li><i class="bi bi-chevron-right"></i> <a href="Mens.html">Men's Fellowship</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="Womens.html">Women's Fellowship</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="Youth.html">Youth Fellowship</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="Sundayschool.html">Sunday School</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="Preschool.html">Pre School</a></li>
-              </ul>
-            </div>
-
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Service Timing</h4>
-              <p>Sunday Service at 9:00 am</p>
-              <p>Sunday School at 9:30 am</p>
-              <p>Communion on all Sundays</p>
-              <p>Praise & worship on the 1st & 3rd Sundays of every month</p>
-
-
-            </div>
-
-            <div class="col-lg-3 col-md-6 footer-contact">
-              <h4>Contact Us</h4>
-              <p>
-                  911, Subroto Mukherji Road,  <br>
-                  Jalahalli (west),<br>
-                  Bangalore 560015 <br>
-                <strong>Phone:</strong> 	080 2839 1099 <br>
-                <strong>Email:</strong> csiholycrosschurch@gmail.com<br>
-              </p>
-
-              <div class="social-links">
-
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
+    <div class="container">
+      <div class="copyright">
+       <strong></strong>
       </div>
+      <div class="credits">
+        <!--
+        All the links in the footer should remain intact.
+        You can delete the links only if you purchased the pro version.
+        Licensing information: https://bootstrapmade.com/license/
+        Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=TheEvent
+
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+      </div>
+    </div>
+  </footer><!-- End  Footer -->
   </main><!-- End #main -->
 
 

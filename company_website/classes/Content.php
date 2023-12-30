@@ -368,7 +368,435 @@ public function pastoratecommittee_delete(){
 		return json_encode($resp);
 
 
-	}public function about(){
+	}
+	public function leaders(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k,array('id','description','old_file'))){
+				if(!empty($data)) $data .= ", ";
+				$data .= "`$k` = '$v'";
+			}
+		}
+				if(!empty($data)) $data .= ", ";
+				$data .= "`description` = '".addslashes(htmlentities($description))."'";
+		if(isset($_FILES['img']) && !empty($_FILES['img']['tmp_name'])){
+			$fname = 'uploads/'.time().'_'.$_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],base_app.$fname);
+			if($move){
+				$data .=" , `file_path` = '{$fname}' ";
+			}
+		}
+		if(empty($id)){
+			$sql ="INSERT INTO leaders set $data";
+		}else{
+			$sql ="UPDATE leaders set $data where id = {$id}";
+		}
+		$save = $this->conn->query($sql);
+		$action = empty($id) ? "added":"updated";
+		if($save){
+			if(isset($move) && $move && !empty($old_file)){
+				if(is_file(base_app.$old_file))
+					unlink(base_app.$old_file);
+			}
+			$resp['status']='success';
+			$resp['message']= "Committee Details successfully ".$action;
+			$this->settings->set_flashdata('success',$resp['message']);
+			
+		}else{
+			$resp['status']='failed';
+			$resp['error']= $this->conn->error;
+			$resp['message']= " error:".$sql;
+		}
+		return json_encode($resp);
+		exit;
+	}
+public function leaders_delete(){
+		extract($_POST);
+		$fpath = $this->conn->query("SELECT file_path FROM leaders where id = $id")->fetch_array()['file_path'];
+		$qry = $this->conn->query("DELETE FROM leaders where id = $id");
+		if($qry){
+			if(is_file(base_app.$fpath))
+					unlink(base_app.$fpath);
+			$resp['status']='success';
+			$resp['message']= " Member Details successfully deleted";
+			$this->settings->set_flashdata('success',$resp['message']);
+		}else{
+			$resp['status']='Failed';
+			$resp['error']= $this->conn->error;
+			$resp['err_msg'] = " Deleting Data failed";
+		}
+		return json_encode($resp);
+
+
+	}
+	public function mens(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k,array('id','description','old_file'))){
+				if(!empty($data)) $data .= ", ";
+				$data .= "`$k` = '$v'";
+			}
+		}
+				if(!empty($data)) $data .= ", ";
+				$data .= "`description` = '".addslashes(htmlentities($description))."'";
+		if(isset($_FILES['img']) && !empty($_FILES['img']['tmp_name'])){
+			$fname = 'uploads/'.time().'_'.$_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],base_app.$fname);
+			if($move){
+				$data .=" , `file_path` = '{$fname}' ";
+			}
+		}
+		if(empty($id)){
+			$sql ="INSERT INTO mens set $data";
+		}else{
+			$sql ="UPDATE mens set $data where id = {$id}";
+		}
+		$save = $this->conn->query($sql);
+		$action = empty($id) ? "added":"updated";
+		if($save){
+			if(isset($move) && $move && !empty($old_file)){
+				if(is_file(base_app.$old_file))
+					unlink(base_app.$old_file);
+			}
+			$resp['status']='success';
+			$resp['message']= "Committee Details successfully ".$action;
+			$this->settings->set_flashdata('success',$resp['message']);
+			
+		}else{
+			$resp['status']='failed';
+			$resp['error']= $this->conn->error;
+			$resp['message']= " error:".$sql;
+		}
+		return json_encode($resp);
+		exit;
+	}
+public function mens_delete(){
+		extract($_POST);
+		$fpath = $this->conn->query("SELECT file_path FROM mens where id = $id")->fetch_array()['file_path'];
+		$qry = $this->conn->query("DELETE FROM mens where id = $id");
+		if($qry){
+			if(is_file(base_app.$fpath))
+					unlink(base_app.$fpath);
+			$resp['status']='success';
+			$resp['message']= " Member Details successfully deleted";
+			$this->settings->set_flashdata('success',$resp['message']);
+		}else{
+			$resp['status']='Failed';
+			$resp['error']= $this->conn->error;
+			$resp['err_msg'] = " Deleting Data failed";
+		}
+		return json_encode($resp);
+
+
+	}
+	public function womens(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k,array('id','description','old_file'))){
+				if(!empty($data)) $data .= ", ";
+				$data .= "`$k` = '$v'";
+			}
+		}
+				if(!empty($data)) $data .= ", ";
+				$data .= "`description` = '".addslashes(htmlentities($description))."'";
+		if(isset($_FILES['img']) && !empty($_FILES['img']['tmp_name'])){
+			$fname = 'uploads/'.time().'_'.$_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],base_app.$fname);
+			if($move){
+				$data .=" , `file_path` = '{$fname}' ";
+			}
+		}
+		if(empty($id)){
+			$sql ="INSERT INTO women set $data";
+		}else{
+			$sql ="UPDATE women set $data where id = {$id}";
+		}
+		$save = $this->conn->query($sql);
+		$action = empty($id) ? "added":"updated";
+		if($save){
+			if(isset($move) && $move && !empty($old_file)){
+				if(is_file(base_app.$old_file))
+					unlink(base_app.$old_file);
+			}
+			$resp['status']='success';
+			$resp['message']= "Details successfully ".$action;
+			$this->settings->set_flashdata('success',$resp['message']);
+			
+		}else{
+			$resp['status']='failed';
+			$resp['error']= $this->conn->error;
+			$resp['message']= " error:".$sql;
+		}
+		return json_encode($resp);
+		exit;
+	}
+public function womens_delete(){
+		extract($_POST);
+		$fpath = $this->conn->query("SELECT file_path FROM women where id = $id")->fetch_array()['file_path'];
+		$qry = $this->conn->query("DELETE FROM women where id = $id");
+		if($qry){
+			if(is_file(base_app.$fpath))
+					unlink(base_app.$fpath);
+			$resp['status']='success';
+			$resp['message']= "Details successfully deleted";
+			$this->settings->set_flashdata('success',$resp['message']);
+		}else{
+			$resp['status']='Failed';
+			$resp['error']= $this->conn->error;
+			$resp['err_msg'] = " Deleting Data failed";
+		}
+		return json_encode($resp);
+
+
+	}
+	public function sundayschool(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k,array('id','description','old_file'))){
+				if(!empty($data)) $data .= ", ";
+				$data .= "`$k` = '$v'";
+			}
+		}
+				if(!empty($data)) $data .= ", ";
+				$data .= "`description` = '".addslashes(htmlentities($description))."'";
+		if(isset($_FILES['img']) && !empty($_FILES['img']['tmp_name'])){
+			$fname = 'uploads/'.time().'_'.$_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],base_app.$fname);
+			if($move){
+				$data .=" , `file_path` = '{$fname}' ";
+			}
+		}
+		if(empty($id)){
+			$sql ="INSERT INTO sundayschool set $data";
+		}else{
+			$sql ="UPDATE sundayschool set $data where id = {$id}";
+		}
+		$save = $this->conn->query($sql);
+		$action = empty($id) ? "added":"updated";
+		if($save){
+			if(isset($move) && $move && !empty($old_file)){
+				if(is_file(base_app.$old_file))
+					unlink(base_app.$old_file);
+			}
+			$resp['status']='success';
+			$resp['message']= "Details successfully ".$action;
+			$this->settings->set_flashdata('success',$resp['message']);
+			
+		}else{
+			$resp['status']='failed';
+			$resp['error']= $this->conn->error;
+			$resp['message']= " error:".$sql;
+		}
+		return json_encode($resp);
+		exit;
+	}
+public function sundayschool_delete(){
+		extract($_POST);
+		$fpath = $this->conn->query("SELECT file_path FROM sundayschool where id = $id")->fetch_array()['file_path'];
+		$qry = $this->conn->query("DELETE FROM sundayschool where id = $id");
+		if($qry){
+			if(is_file(base_app.$fpath))
+					unlink(base_app.$fpath);
+			$resp['status']='success';
+			$resp['message']= "Details successfully deleted";
+			$this->settings->set_flashdata('success',$resp['message']);
+		}else{
+			$resp['status']='Failed';
+			$resp['error']= $this->conn->error;
+			$resp['err_msg'] = " Deleting Data failed";
+		}
+		return json_encode($resp);
+
+
+	}
+	public function preschool(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k,array('id','description','old_file'))){
+				if(!empty($data)) $data .= ", ";
+				$data .= "`$k` = '$v'";
+			}
+		}
+				if(!empty($data)) $data .= ", ";
+				$data .= "`description` = '".addslashes(htmlentities($description))."'";
+		if(isset($_FILES['img']) && !empty($_FILES['img']['tmp_name'])){
+			$fname = 'uploads/'.time().'_'.$_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],base_app.$fname);
+			if($move){
+				$data .=" , `file_path` = '{$fname}' ";
+			}
+		}
+		if(empty($id)){
+			$sql ="INSERT INTO preschool set $data";
+		}else{
+			$sql ="UPDATE preschool set $data where id = {$id}";
+		}
+		$save = $this->conn->query($sql);
+		$action = empty($id) ? "added":"updated";
+		if($save){
+			if(isset($move) && $move && !empty($old_file)){
+				if(is_file(base_app.$old_file))
+					unlink(base_app.$old_file);
+			}
+			$resp['status']='success';
+			$resp['message']= "Details successfully ".$action;
+			$this->settings->set_flashdata('success',$resp['message']);
+			
+		}else{
+			$resp['status']='failed';
+			$resp['error']= $this->conn->error;
+			$resp['message']= " error:".$sql;
+		}
+		return json_encode($resp);
+		exit;
+	}
+public function preschool_delete(){
+		extract($_POST);
+		$fpath = $this->conn->query("SELECT file_path FROM preschool where id = $id")->fetch_array()['file_path'];
+		$qry = $this->conn->query("DELETE FROM preschool where id = $id");
+		if($qry){
+			if(is_file(base_app.$fpath))
+					unlink(base_app.$fpath);
+			$resp['status']='success';
+			$resp['message']= "Details successfully deleted";
+			$this->settings->set_flashdata('success',$resp['message']);
+		}else{
+			$resp['status']='Failed';
+			$resp['error']= $this->conn->error;
+			$resp['err_msg'] = " Deleting Data failed";
+		}
+		return json_encode($resp);
+
+
+	}
+	public function youth(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k,array('id','description','old_file'))){
+				if(!empty($data)) $data .= ", ";
+				$data .= "`$k` = '$v'";
+			}
+		}
+				if(!empty($data)) $data .= ", ";
+				$data .= "`description` = '".addslashes(htmlentities($description))."'";
+		if(isset($_FILES['img']) && !empty($_FILES['img']['tmp_name'])){
+			$fname = 'uploads/'.time().'_'.$_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],base_app.$fname);
+			if($move){
+				$data .=" , `file_path` = '{$fname}' ";
+			}
+		}
+		if(empty($id)){
+			$sql ="INSERT INTO youth set $data";
+		}else{
+			$sql ="UPDATE youth set $data where id = {$id}";
+		}
+		$save = $this->conn->query($sql);
+		$action = empty($id) ? "added":"updated";
+		if($save){
+			if(isset($move) && $move && !empty($old_file)){
+				if(is_file(base_app.$old_file))
+					unlink(base_app.$old_file);
+			}
+			$resp['status']='success';
+			$resp['message']= "Details successfully ".$action;
+			$this->settings->set_flashdata('success',$resp['message']);
+			
+		}else{
+			$resp['status']='failed';
+			$resp['error']= $this->conn->error;
+			$resp['message']= " error:".$sql;
+		}
+		return json_encode($resp);
+		exit;
+	}
+public function youth_delete(){
+		extract($_POST);
+		$fpath = $this->conn->query("SELECT file_path FROM youth where id = $id")->fetch_array()['file_path'];
+		$qry = $this->conn->query("DELETE FROM youth where id = $id");
+		if($qry){
+			if(is_file(base_app.$fpath))
+					unlink(base_app.$fpath);
+			$resp['status']='success';
+			$resp['message']= "Details successfully deleted";
+			$this->settings->set_flashdata('success',$resp['message']);
+		}else{
+			$resp['status']='Failed';
+			$resp['error']= $this->conn->error;
+			$resp['err_msg'] = " Deleting Data failed";
+		}
+		return json_encode($resp);
+
+
+	}
+	public function senior(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k,array('id','description','old_file'))){
+				if(!empty($data)) $data .= ", ";
+				$data .= "`$k` = '$v'";
+			}
+		}
+				if(!empty($data)) $data .= ", ";
+				$data .= "`description` = '".addslashes(htmlentities($description))."'";
+		if(isset($_FILES['img']) && !empty($_FILES['img']['tmp_name'])){
+			$fname = 'uploads/'.time().'_'.$_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],base_app.$fname);
+			if($move){
+				$data .=" , `file_path` = '{$fname}' ";
+			}
+		}
+		if(empty($id)){
+			$sql ="INSERT INTO senior set $data";
+		}else{
+			$sql ="UPDATE senior set $data where id = {$id}";
+		}
+		$save = $this->conn->query($sql);
+		$action = empty($id) ? "added":"updated";
+		if($save){
+			if(isset($move) && $move && !empty($old_file)){
+				if(is_file(base_app.$old_file))
+					unlink(base_app.$old_file);
+			}
+			$resp['status']='success';
+			$resp['message']= "Details successfully ".$action;
+			$this->settings->set_flashdata('success',$resp['message']);
+			
+		}else{
+			$resp['status']='failed';
+			$resp['error']= $this->conn->error;
+			$resp['message']= " error:".$sql;
+		}
+		return json_encode($resp);
+		exit;
+	}
+public function senior_delete(){
+		extract($_POST);
+		$fpath = $this->conn->query("SELECT file_path FROM senior where id = $id")->fetch_array()['file_path'];
+		$qry = $this->conn->query("DELETE FROM senior where id = $id");
+		if($qry){
+			if(is_file(base_app.$fpath))
+					unlink(base_app.$fpath);
+			$resp['status']='success';
+			$resp['message']= "Details successfully deleted";
+			$this->settings->set_flashdata('success',$resp['message']);
+		}else{
+			$resp['status']='Failed';
+			$resp['error']= $this->conn->error;
+			$resp['err_msg'] = " Deleting Data failed";
+		}
+		return json_encode($resp);
+
+
+	}
+	public function about(){
 		extract($_POST);
 		$data = "";
 		foreach($_POST as $k => $v){
@@ -410,7 +838,127 @@ public function pastoratecommittee_delete(){
 		return json_encode($resp);
 		exit;
 	}
+	public function pastpastors(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k,array('id','description','old_file'))){
+				if(!empty($data)) $data .= ", ";
+				$data .= "`$k` = '$v'";
+			}
+		}
+				if(!empty($data)) $data .= ", ";
+				$data .= "`description` = '".addslashes(htmlentities($description))."'";
+		if(isset($_FILES['img']) && !empty($_FILES['img']['tmp_name'])){
+			$fname = 'uploads/'.time().'_'.$_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],base_app.$fname);
+			if($move){
+				$data .=" , `file_path` = '{$fname}' ";
+			}
+		}
+		if(empty($id)){
+			$sql ="INSERT INTO pastpastors set $data";
+		}else{
+			$sql ="UPDATE pastpastors set $data where id = {$id}";
+		}
+		$save = $this->conn->query($sql);
+		$action = empty($id) ? "added":"updated";
+		if($save){
+			if(isset($move) && $move && !empty($old_file)){
+				if(is_file(base_app.$old_file))
+					unlink(base_app.$old_file);
+			}
+			$resp['status']='success';
+			$resp['message']= "Committee Details successfully ".$action;
+			$this->settings->set_flashdata('success',$resp['message']);
+			
+		}else{
+			$resp['status']='failed';
+			$resp['error']= $this->conn->error;
+			$resp['message']= " error:".$sql;
+		}
+		return json_encode($resp);
+		exit;
+	}
+	public function pp_delete(){
+		extract($_POST);
+		$fpath = $this->conn->query("SELECT file_path FROM pastpastors where id = $id")->fetch_array()['file_path'];
+		$qry = $this->conn->query("DELETE FROM pastpastors where id = $id");
+		if($qry){
+			if(is_file(base_app.$fpath))
+					unlink(base_app.$fpath);
+			$resp['status']='success';
+			$resp['message']= " Member Details successfully deleted";
+			$this->settings->set_flashdata('success',$resp['message']);
+		}else{
+			$resp['status']='Failed';
+			$resp['error']= $this->conn->error;
+			$resp['err_msg'] = " Deleting Data failed";
+		}
+		return json_encode($resp);
 
+
+	}
+	public function goldendates(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k,array('id','description','old_file'))){
+				if(!empty($data)) $data .= ", ";
+				$data .= "`$k` = '$v'";
+			}
+		}
+				if(!empty($data)) $data .= ", ";
+				$data .= "`description` = '".addslashes(htmlentities($description))."'";
+		if(isset($_FILES['img']) && !empty($_FILES['img']['tmp_name'])){
+			$fname = 'uploads/'.time().'_'.$_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],base_app.$fname);
+			if($move){
+				$data .=" , `file_path` = '{$fname}' ";
+			}
+		}
+		if(empty($id)){
+			$sql ="INSERT INTO goldendates set $data";
+		}else{
+			$sql ="UPDATE goldendates set $data where id = {$id}";
+		}
+		$save = $this->conn->query($sql);
+		$action = empty($id) ? "added":"updated";
+		if($save){
+			if(isset($move) && $move && !empty($old_file)){
+				if(is_file(base_app.$old_file))
+					unlink(base_app.$old_file);
+			}
+			$resp['status']='success';
+			$resp['message']= "Committee Details successfully ".$action;
+			$this->settings->set_flashdata('success',$resp['message']);
+			
+		}else{
+			$resp['status']='failed';
+			$resp['error']= $this->conn->error;
+			$resp['message']= " error:".$sql;
+		}
+		return json_encode($resp);
+		exit;
+	}
+
+	public function gdates_delete(){
+		extract($_POST);
+		$fpath = $this->conn->query("SELECT file_path FROM goldendates  where id = $id")->fetch_array()['file_path'];
+		$qry = $this->conn->query("DELETE FROM goldendates  where id = $id");
+		if($qry){
+			if(is_file(base_app.$fpath))
+					unlink(base_app.$fpath);
+			$resp['status']='success';
+			$resp['message']= "Date successfully deleted";
+			$this->settings->set_flashdata('success',$resp['message']);
+		}else{
+			$resp['status']='Failed';
+			$resp['error']= $this->conn->error;
+			$resp['err_msg'] = " Deleting Data failed";
+		}
+		return json_encode($resp);
+	}
 public function about_delete(){
 		extract($_POST);
 		$fpath = $this->conn->query("SELECT file_path FROM about where id = $id")->fetch_array()['file_path'];
@@ -429,6 +977,65 @@ public function about_delete(){
 		return json_encode($resp);
 	}
 
+	public function tribute(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k => $v){
+			if(!in_array($k,array('id','description','old_file'))){
+				if(!empty($data)) $data .= ", ";
+				$data .= "`$k` = '$v'";
+			}
+		}
+				if(!empty($data)) $data .= ", ";
+				$data .= "`description` = '".addslashes(htmlentities($description))."'";
+		if(isset($_FILES['img']) && !empty($_FILES['img']['tmp_name'])){
+			$fname = 'uploads/'.time().'_'.$_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],base_app.$fname);
+			if($move){
+				$data .=" , `file_path` = '{$fname}' ";
+			}
+		}
+		if(empty($id)){
+			$sql ="INSERT INTO tribute set $data";
+		}else{
+			$sql ="UPDATE tribute set $data where id = {$id}";
+		}
+		$save = $this->conn->query($sql);
+		$action = empty($id) ? "added":"updated";
+		if($save){
+			if(isset($move) && $move && !empty($old_file)){
+				if(is_file(base_app.$old_file))
+					unlink(base_app.$old_file);
+			}
+			$resp['status']='success';
+			$resp['message']= "Details Successfully Deleted ".$action;
+			$this->settings->set_flashdata('success',$resp['message']);
+			
+		}else{
+			$resp['status']='failed';
+			$resp['error']= $this->conn->error;
+			$resp['message']= " error:".$sql;
+		}
+		return json_encode($resp);
+		exit;
+	}
+	public function tribute_delete(){
+		extract($_POST);
+		$fpath = $this->conn->query("SELECT file_path FROM tribute where id = $id")->fetch_array()['file_path'];
+		$qry = $this->conn->query("DELETE FROM tribute where id = $id");
+		if($qry){
+			if(is_file(base_app.$fpath))
+					unlink(base_app.$fpath);
+			$resp['status']='success';
+			$resp['message']= " Member Details successfully deleted";
+			$this->settings->set_flashdata('success',$resp['message']);
+		}else{
+			$resp['status']='Failed';
+			$resp['error']= $this->conn->error;
+			$resp['err_msg'] = " Deleting Data failed";
+		}
+		return json_encode($resp);
+	}
 	public function event(){
 		extract($_POST);
 		$data = "";
@@ -734,7 +1341,54 @@ switch ($action) {
 	case 'pastoratecommittee_delete':
 		echo $Content->pastoratecommittee_delete();
 	break;
-
+	case 'leaders':
+		echo $Content->leaders();
+	break;
+	case 'leaders_delete':
+		echo $Content->leaders_delete();
+	break;
+	case 'mens':
+		echo $Content->mens();
+	break;
+	case 'mens_delete':
+		echo $Content->mens_delete();
+	break;
+	case 'womens':
+		echo $Content->womens();
+	break;
+	case 'womens_delete':
+		echo $Content->womens_delete();
+	break;
+	case 'sundayschool':
+		echo $Content->sundayschool();
+	break;
+	case 'sundayschool_delete':
+		echo $Content->sundayschool_delete();
+	break;
+	case 'preschool':
+		echo $Content->preschool();
+	break;
+	case 'preschool_delete':
+		echo $Content->preschool_delete();
+	break;
+	case 'youth':
+		echo $Content->youth();
+	break;
+	case 'youth_delete':
+		echo $Content->youth_delete();
+	break;
+	case 'senior':
+		echo $Content->senior();
+	break;
+	case 'senior_delete':
+		echo $Content->senior_delete();
+	break;
+	case 'goldendates':
+		echo $Content->goldendates();
+	break;
+	case 'gdates_delete':
+		echo $Content->gdates_delete();
+	break;
 
 	case 'about':
 		echo $Content->about();
@@ -744,6 +1398,19 @@ switch ($action) {
 	break;
 	case 'livecreds':
 		echo $Content->livecreds();
+	break;
+	case 'pastpastors':
+		echo $Content->pastpastors();
+	break;
+	case 'pp_delete':
+		echo $Content->pp_delete();
+	break;
+
+	case 'tribute':
+		echo $Content->tribute();
+	break;
+	case 'tribute_delete':
+		echo $Content->tribute_delete();
 	break;
 
 

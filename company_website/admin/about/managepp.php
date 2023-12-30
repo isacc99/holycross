@@ -5,7 +5,7 @@
 <?php endif;?>
 <?php 
 if(isset($_GET['id'])){
-	$qry = $conn->query("SELECT * from `about` where id = '{$_GET['id']}' ");
+	$qry = $conn->query("SELECT * from `pastpastors` where id = '{$_GET['id']}' ");
 	foreach($qry->fetch_array() as $k => $v){
 		if(!is_numeric($k)){
 			$$k = $v;
@@ -16,12 +16,18 @@ if(isset($_GET['id'])){
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
 		<div class="card-header">
-			<h5 class="card-title"><?php echo isset($id) ? "Manage": "Create" ?> About</h5>
+			<h5 class="card-title"><?php echo isset($id) ? "Manage": "Create" ?> Committee</h5>
 		</div>
 		<div class="card-body">
-			<form id="about">
+			<form id="pastpastors">
 				<div class="row" class="details">
 					<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="year" class="control-label">Year</label>
+							<input type="text" name="year" class="form-control" value="<?php echo isset($year) ? $year : '' ?>">
+						</div>
+					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label for="title" class="control-label">Name</label>
@@ -56,7 +62,7 @@ if(isset($_GET['id'])){
 			</form>
 		</div>
 		<div class="card-footer">
-			<button class="btn btn-primary btn-sm" form="about"><?php echo isset($_GET['id']) ? "Update": "Save" ?></button>
+			<button class="btn btn-primary btn-sm" form="pastpastors"><?php echo isset($_GET['id']) ? "Update": "Save" ?></button>
 			<a class="btn btn-primary btn-sm" href="./?page=about">Cancel</a>
 		</div>
 	</div>
@@ -82,11 +88,11 @@ function displayImg(input,_this) {
 	}
 	$(document).ready(function(){
 		$('.select')
-		$('#about').submit(function(e){
+		$('#pastpastors').submit(function(e){
 			e.preventDefault();
 			start_loader();
 			$.ajax({
-				url:_base_url_+"classes/Content.php?f=about",
+				url:_base_url_+"classes/Content.php?f=pastpastors",
 				data: new FormData($(this)[0]),
 				cache: false,
 				contentType: false,

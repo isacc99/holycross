@@ -1,4 +1,35 @@
-<!-- Main Sidebar Container -->
+<style>
+.sublist li {
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  transition: background-color 0.3s; /* Smooth transition effect */
+}
+
+.sublist li:hover {
+  background-color: #f0f0f0; /* Highlight on hover */
+}
+
+.sublist li.active {
+  background-color: #d3d3d3; /* Highlight the clicked one */
+}
+</style>
+<script>
+  document.getElementById('fellowshipDropdown').addEventListener('click', function () {
+    var sublist = document.getElementById('fellowshipSublist');
+    sublist.style.display = sublist.style.display === 'block' ? 'none' : 'block';
+  });
+
+  // Add click event listeners to list items to toggle the 'active' class
+  var listItems = document.querySelectorAll('.sublist li');
+  listItems.forEach(function (item) {
+    item.addEventListener('click', function () {
+      listItems.forEach(function (li) {
+        li.classList.remove('active');
+      });
+      item.classList.add('active');
+    });
+  });
+</script>
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="<?php echo base_url ?>admin" class="brand-link text-sm">
@@ -86,6 +117,21 @@
                         </p>
                       </a>
                     </li>
+                    <li class="nav-item dropdown">
+  <a href="#" class="nav-link" id="fellowshipDropdown">
+    <i class="nav-icon far fa-calendar"></i>
+    <p>Fellowship Details</p>
+  </a>
+  <ul class="sublist" id="fellowshipSublist">
+  <li><a href="./?page=sundayschool"><i class="fa fa-school"></i>  Sunday School</a></li>
+  <li><a href="./?page=preschool"><i class="fa fa-school"></i> Pre school</a></li>
+<li><a href="./?page=youth"><i class="fa fa-users"></i> Youth Fellowship</a></li>	
+<li><a href="./?page=womens"><i class="fa fa-female"></i> Women's fellowship</a></li>
+<li><a href="./?page=Men"><i class="fa fa-male"></i> Men's Fellowship</a></li>
+<li><a href="./?page=senior"><i class="fa fa-user"></i> Senior citizen's Fellowship</a></li>
+
+  </ul>
+</li>
                     
                     <li class="nav-item dropdown">
                       <a href="<?php echo base_url ?>admin/?page=services" class="nav-link nav-services">

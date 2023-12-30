@@ -39,8 +39,8 @@
 					<input type="text" class="form-control form-control-sm" name="short_name" id="short_name" value="<?php echo  $_settings->info('short_name') ?>">
 				</div>
 			<div class="form-group">
-				<label for="" class="control-label">Welcome Content</label>
-	             <textarea name="welcome_message" id="" cols="30" rows="5" class="form-control"><?php echo  stripslashes($_settings->info('welcome_message')) ?></textarea>
+				<label for="" class="control-label">Tagline</label>
+	             <textarea name="tagline" id="" cols="30" rows="5" class="form-control"><?php echo  stripslashes($_settings->info('tagline')) ?></textarea>
 			</div>
 			<div class="form-group">
 				<label for="" class="control-label">Church Logo</label>
